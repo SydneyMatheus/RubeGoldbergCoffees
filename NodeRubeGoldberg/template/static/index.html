@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+.left {
+  position: absolute;
+  top: 130px;
+  left: 30px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tRight {
+  text-align: right;
+  margin-top: -20px;
+}
+
+.tab { 
+       display:inline-block; 
+       margin-left: 35px; 
+		margin-bottom: 20px;
+}
+
+.back{
+	background:url("https://images.pexels.com/photos/414645/pexels-photo-414645.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260");
+	background-size: cover;
+	height: 600px;
+}
+</style>
+</head>
+<body>
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Café de Rube Goldberg</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <link rel="stylesheet" href="weather-icons-master/css/weather-icons.min.css">
+    <link rel="stylesheet" media="screen" href="https://fontlibrary.org/face/bebas" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style-card.css">
+	<script scr="https://www.gstatic.com/firebasejs/9.0.0/firebase.js"></script>
+  <script scr="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+</head>
+
+<body>
+
+    <!--<script type="text/javascript">
+        console.log("lendo");
+            setInterval(() => {
+              console.log("lopando temperatura");
+                $.ajax({
+                url: "http://localhost:5000/getTemp",
+                type: "GET",
+                success: function(response) {
+                  
+                  document.getElementById('txtTemp').innerHTML='Atualmente àh: '
+                  document.getElementById('temp_ds18').innerHTML=response.temperature+'ºC'
+                  console.log(response)
+                },
+                error: function(err) {
+                  console.log(err)
+                }
+              }) 
+            }, 3000);
+    </script>
+    <script type="text/javascript">
+        console.log("Lendo /getCafeStatus");
+            setInterval(() => {
+                $.ajax({
+					url: "http://localhost:5000/getCafeStatus",
+					type: "GET",
+					success: function(response) {
+						document.getElementById('cafeStatus').innerHTML=response.status
+						console.log(response)
+					},
+					error: function(err) {
+						console.log(err)
+					}
+				}) 
+            }, 3000);
+    </script>-->
+    <div class="back">
+		<div class="left">
+			<div class="widget" style="height: 210px;">
+				<div class="details">
+					<div class="content">
+						<div class="row">
+								<div class="info">
+									<div class="Day" id="cafeStatus">Seu café está em preparo...</div>
+                  <span class="Day" id="txtTemp" ></span>
+								</div>
+								<div class="tRight" style="font-size: 100px;" >
+									<span class="tab" id="temp_ds18" ></span>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+  <script type="text/javascript">
+    console.log("lendo");
+        setInterval(() => {
+          console.log("lopando temperatura");
+            $.ajax({
+            url: "http://localhost:5000/getData",
+            type: "GET",
+            success: function(response) {
+              if(response.flag === true){
+                document.getElementById('cafeStatus').innerHTML=response.status
+                document.getElementById('txtTemp').innerHTML='Atualmente àh: '
+                document.getElementById('temp_ds18').innerHTML=response.temperature+'ºC'
+                console.log(response)
+              }
+            },
+            error: function(err) {
+              console.log(err)
+            },
+            timeout: 1000
+          }) 
+        }, 3000);
+</script>
+</body>
+</html>
