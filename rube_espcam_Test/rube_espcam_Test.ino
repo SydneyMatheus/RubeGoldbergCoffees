@@ -1,7 +1,12 @@
 #include <WebServer.h>
 #include <WiFi.h>
 #include <esp32cam.h>
- 
+#include <IOXhop_FirebaseESP32.h>
+#include <ArduinoJson.h>
+
+#define FIREBASE_HOST "https://rubegoldberginths-default-rtdb.firebaseio.com"
+#define FIREBASE_AUTH "KRPlVyGx03leSkBZePcUV0ucVO2ioAY0O7ILlp1u"
+
 const char* WIFI_SSID = "MultilaserPRO_ZTE_2.4G_SX3SSe";
 const char* WIFI_PASS = "Zxt7Zh9x";
  
@@ -54,6 +59,7 @@ void handleJpgMid()
  
  
 void  setup(){
+  Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
   Serial.begin(115200);
   Serial.println();
   {
@@ -81,7 +87,12 @@ void  setup(){
   Serial.println("  /cam-lo.jpg");
   Serial.println("  /cam-hi.jpg");
   Serial.println("  /cam-mid.jpg");
- 
+  String endpoint = "/cam-lo.jpg";
+  //String startpoint = "http://";
+  //String wifiIp = WiFi.localIP();
+  String url = "http://" + WiFi.localIP().toString() + endpoint;
+  Serial.println(url);
+  Firebase.setString("/serverUrl", url);
   server.on("/cam-lo.jpg", handleJpgLo);
   server.on("/cam-hi.jpg", handleJpgHi);
   server.on("/cam-mid.jpg", handleJpgMid);

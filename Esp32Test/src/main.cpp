@@ -6,19 +6,21 @@
 #include <OneWire.h>
 #include <DallasTemperature.h>
 
-//#define DS18B20 15
-//OneWire oneWire(DS18B20);
-//DallasTemperature Sensor(&oneWire);
-//float leitura;
+#define DS18B20 15
+OneWire oneWire(DS18B20);
+DallasTemperature Sensor(&oneWire);
+float leitura;
 
-#define FIREBASE_HOST ""
-#define FIREBASE_AUTH ""
+#define FIREBASE_HOST "https://rubegoldberginths-default-rtdb.firebaseio.com"
+#define FIREBASE_AUTH "KRPlVyGx03leSkBZePcUV0ucVO2ioAY0O7ILlp1u"
 
 #define PIN_SERVO 13
 Servo myServo;
 
-//int trigPin = 26;
-//int echo = 27;
+int trigPin = 26;
+int echoPin = 27;
+
+int rubeGoldbergFinal = 0;
 
 const char* WIFI_SSID = "MultilaserPRO_ZTE_2.4G_SX3SSe";
 const char* WIFI_PASS = "Zxt7Zh9x";
@@ -42,10 +44,10 @@ void setup()
   myServo.attach(PIN_SERVO);
   myServo.write(180);
 
-  //Sensor.begin();
+  Sensor.begin();
   
-  //pinMode(trigPin, OUTPUT);
-  //pinMode(echoPin, INPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
 }
 
 void loop()
@@ -58,19 +60,19 @@ void loop()
     //delay(5000);
   }
   
-  /*Sensor.requestTemperatures();
+  Sensor.requestTemperatures();
 
   leitura = Sensor.getTempCByIndex(0);
 
   if(WiFi.status() == WL_CONNECTED)
   {
     Serial.println(leitura);
-    Firebase.pushFloat("/temperature", leitura);
+    Firebase.setFloat("/status/temperatura/temp", leitura);
   } else {
     Serial.println("Conexão perdida");
-  }*/
+  }
 
-  /*int distancia;
+  int distancia;
   digitalWrite(trigPin, LOW);
   delayMicroseconds(2);
   digitalWrite(trigPin, HIGH);
@@ -81,7 +83,16 @@ void loop()
   Serial.print("Distancia: ");
   Serial.print(distancia);
   Serial.println(" cm");
-  */
+
+  if(int(distancia) > 15)
+  {
+    rubeGoldbergFinal++;
+    if(rubeGoldbergFinal == 3){
+      Firebase.setBool("/status/rubeGoldberg", true);
+    }
+  } else {
+    rubeGoldbergFinal = 0;
+  }
   
   delay(5000);
 }
