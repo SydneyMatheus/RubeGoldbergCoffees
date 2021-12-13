@@ -1,0 +1,76 @@
+/* Large tablet & PC */
+@media (min-width: 768px) and (max-width: 1200px) {
+  .about .content .card-title {
+    font-size: 2.3rem;
+  }
+
+  .about .content .card-text {
+    font-size: unset;
+  }  
+}
+
+/* Large tablet */
+@media (min-width: 768px) and (max-width: 991px) {
+  html {
+    font-size: 55%;
+  }
+}
+
+/* Small tablet & Mobile */
+@media (max-width: 767px) {
+  .nav-center {
+    display: none;
+  }
+
+  .nav-right .search .input {
+    right: -90px;
+  }
+
+  .nav-right .cart {
+    margin: 0 1.7rem;
+  }
+
+  .nav-right .menu-bar {
+    display: block;
+  }
+
+  .card-img-overlay {
+    width: 100%;
+    align-items: center;
+  }
+
+  .card-img-overlay .card-title {
+    text-align: center;
+    font-size: 3.6rem;
+  }
+  
+  .card-img-overlay .card-text {
+    text-align: center;
+    font-size: 1.3rem;
+    line-height: 2rem;
+  }
+    
+}
+
+/* Small tablet */
+/* @media (min-width: 576px) and (max-width: 766px) {
+} */
+
+/* Mobile */
+@media (max-width: 575px) {
+  html {
+    font-size: 50%;
+  }
+
+  .nav-right .search .input  {
+    width: 90vw;
+  }
+
+  .nav-right div {
+    padding: 0 1rem;
+  }
+  
+  .nav-right div i {
+    font-size: 3rem;    
+  }
+}
